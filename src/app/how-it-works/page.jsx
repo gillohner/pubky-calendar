@@ -18,21 +18,20 @@ export default function HowItWorksPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
-      {/* Header partagé */}
+      {/* Shared Header */}
       <Header
         onShowLoginModal={() => setShowLoginModal(true)}
-        onShowCreateModal={() => {}} // Pas utilisé sur cette page
+        onShowCreateModal={() => {}} // Not used on this page
       />
 
       <div className="max-w-4xl mx-auto px-4 py-12">
-        {/* Header de la page */}
+        {/* Page Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-6">
-            🔧 How it works?
+            🔧 How does it work?
           </h1>
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-            Discover the decentralized architecture of Pubky Calendar and how
-            your data is managed securely and transparently.
+            Discover the decentralized architecture of Pubky Calendar and how your calendar events are managed securely and transparently.
           </p>
         </div>
 
@@ -69,7 +68,7 @@ export default function HowItWorksPage() {
                   <span className="text-green-500 dark:text-green-400 mr-2">
                     ✓
                   </span>
-                  Automatic backup to your personal homeserver
+                  Automatic backup of your calendar events to your personal homeserver
                 </li>
               </ul>
             </div>
@@ -84,7 +83,7 @@ export default function HowItWorksPage() {
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-400 mr-2">✓</span>
-                  Local JSON cache for metadata and votes
+                  Local JSON cache for event metadata
                 </li>
                 <li className="flex items-start">
                   <span className="text-green-400 mr-2">✓</span>
@@ -102,7 +101,7 @@ export default function HowItWorksPage() {
         {/* Authentication Flow */}
         <div className="bg-gray-800 rounded-lg border border-gray-700 p-8 mb-8">
           <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
-            🔐 Authentification Pubky Ring
+            🔐 Pubky Ring Authentication
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center">
@@ -113,8 +112,7 @@ export default function HowItWorksPage() {
                 1. Scan QR Code
               </h3>
               <p className="text-gray-300 text-sm">
-                Scannez le QR code avec l'app Pubky Ring ou copiez le challenge
-                manuellement
+                Scan the QR code with the Pubky Ring app or copy the challenge manually
               </p>
             </div>
             <div className="text-center">
@@ -122,10 +120,10 @@ export default function HowItWorksPage() {
                 <span className="text-2xl">✍️</span>
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">
-                2. Signature Cryptographique
+                2. Cryptographic Signature
               </h3>
               <p className="text-gray-300 text-sm">
-                Votre clé privée Ed25519 signe le challenge de manière sécurisée
+                Your Ed25519 private key securely signs the challenge
               </p>
             </div>
             <div className="text-center">
@@ -133,11 +131,10 @@ export default function HowItWorksPage() {
                 <span className="text-2xl">🔓</span>
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">
-                3. Vérification & Accès
+                3. Verification & Access
               </h3>
               <p className="text-gray-300 text-sm">
-                La signature est vérifiée et vous accédez à votre session
-                sécurisée
+                The signature is verified and you access your secure session
               </p>
             </div>
           </div>
@@ -146,58 +143,46 @@ export default function HowItWorksPage() {
         {/* Data Storage */}
         <div className="bg-gray-800 rounded-lg border border-gray-700 p-8 mb-8">
           <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
-            💾 Stockage des Données
+            💾 Data Storage
           </h2>
           <div className="space-y-6">
             <div className="bg-gray-700 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-purple-400 mb-3">
-                🏠 Votre Homeserver Pubky
+                🏠 Your Pubky Homeserver
               </h3>
               <p className="text-gray-300 mb-3">
-                Chaque fonctionnalité que vous créez est sauvegardée sur votre
-                homeserver personnel dans :
+                Every calendar event you create is saved on your personal homeserver at:
               </p>
               <code className="bg-gray-900 text-green-400 px-3 py-1 rounded text-sm">
-                /pub/roadky-app/features/[feature-id].json
+                /pub/ics/events/[event-uid].ics
               </code>
               <ul className="mt-3 space-y-1 text-gray-300 text-sm">
-                <li>• Vous gardez le contrôle total de vos données</li>
-                <li>
-                  • Vous pouvez modifier/supprimer vos fonctionnalités à tout
-                  moment
-                </li>
-                <li>
-                  • Accès direct via le protocole{" "}
-                  <code className="text-purple-400">pubky://</code>
-                </li>
+                <li>• You retain full control of your data</li>
+                <li>• You can modify or delete your events at any time</li>
+                <li>• Direct access via the <code className="text-purple-400">pubky://</code> protocol</li>
               </ul>
             </div>
 
             <div className="bg-gray-700 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-blue-400 mb-3">
-                🌐 Cache Local Roadky
+                🌐 Roadky Local Cache
               </h3>
               <p className="text-gray-300 mb-3">
-                Le serveur Roadky maintient un cache local pour l'affichage
-                public contenant :
+                The Roadky server maintains a local cache for public display containing:
               </p>
               <ul className="space-y-1 text-gray-300 text-sm">
-                <li>
-                  • Métadonnées des fonctionnalités (titre, description,
-                  catégorie)
-                </li>
-                <li>• Compteurs de votes et liste des votants</li>
-                <li>• Références vers les homeservers d'origine</li>
-                <li>• Timestamps de synchronisation</li>
+                <li>• Event metadata (summary, start/end time, UID)</li>
+                <li>• References to the original homeservers</li>
+                <li>• Synchronization timestamps</li>
               </ul>
             </div>
           </div>
         </div>
 
-        {/* Feature Lifecycle */}
+        {/* Event Lifecycle */}
         <div className="bg-gray-800 rounded-lg border border-gray-700 p-8 mb-8">
           <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
-            🔄 Cycle de Vie d'une Fonctionnalité
+            🔄 Calendar Event Lifecycle
           </h2>
           <div className="space-y-4">
             <div className="flex items-start space-x-4">
@@ -205,11 +190,9 @@ export default function HowItWorksPage() {
                 <span className="text-white text-sm font-bold">1</span>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white">Création</h3>
+                <h3 className="text-lg font-semibold text-white">Creation</h3>
                 <p className="text-gray-300">
-                  Vous créez une fonctionnalité via l'interface. Elle est
-                  automatiquement sauvegardée sur votre homeserver Pubky ET
-                  ajoutée au cache local pour l'affichage public.
+                  You create a calendar event via the interface. It is automatically saved to your Pubky homeserver <b>and</b> added to the local cache for public display.
                 </p>
               </div>
             </div>
@@ -220,44 +203,24 @@ export default function HowItWorksPage() {
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-white">
-                  Vote Communautaire
+                  Synchronization
                 </h3>
                 <p className="text-gray-300">
-                  Les utilisateurs connectés peuvent voter pour vos
-                  fonctionnalités. Les votes sont stockés localement et les
-                  fonctionnalités sont triées par popularité.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4">
-              <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                <span className="text-white text-sm font-bold">3</span>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-white">
-                  Synchronisation
-                </h3>
-                <p className="text-gray-300">
-                  Si vous modifiez une fonctionnalité sur votre homeserver, elle
-                  sera automatiquement synchronisée lors de la prochaine mise à
-                  jour (les votes locaux sont préservés).
+                  If you modify an event on your homeserver, it will be automatically synchronized during the next update.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start space-x-4">
               <div className="w-8 h-8 bg-orange-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                <span className="text-white text-sm font-bold">4</span>
+                <span className="text-white text-sm font-bold">3</span>
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-white">
-                  Gestion via Backoffice
+                  Manage via Admin Area
                 </h3>
                 <p className="text-gray-300">
-                  Accédez à votre backoffice personnel pour voir toutes vos
-                  fonctionnalités créées, leurs statistiques de votes et les
-                  gérer facilement.
+                  Access your personal admin area to see all your created events and manage them easily.
                 </p>
               </div>
             </div>
@@ -267,41 +230,41 @@ export default function HowItWorksPage() {
         {/* Technical Details */}
         <div className="bg-gray-800 rounded-lg border border-gray-700 p-8 mb-8">
           <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
-            ⚙️ Détails Techniques
+            ⚙️ Technical Details
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <h3 className="text-lg font-semibold text-purple-400 mb-3">
-                Technologies Utilisées
+                Technologies Used
               </h3>
               <ul className="space-y-2 text-gray-300">
                 <li>
                   <strong>Frontend:</strong> Next.js 14, React, Tailwind CSS
                 </li>
                 <li>
-                  <strong>Backend:</strong> Node.js, API Routes Next.js
+                  <strong>Backend:</strong> Node.js, Next.js API Routes
                 </li>
                 <li>
-                  <strong>Pubky:</strong> Client WASM, Homeserver Protocol
+                  <strong>Pubky:</strong> WASM Client, Homeserver Protocol
                 </li>
                 <li>
                   <strong>Crypto:</strong> Ed25519, SHA-256, BIP39
                 </li>
                 <li>
-                  <strong>Stockage:</strong> JSON local + Homeserver Pubky
+                  <strong>Storage:</strong> Local JSON + Pubky Homeserver (.ics)
                 </li>
               </ul>
             </div>
             <div>
               <h3 className="text-lg font-semibold text-blue-400 mb-3">
-                Sécurité & Confidentialité
+                Security & Privacy
               </h3>
               <ul className="space-y-2 text-gray-300">
-                <li>• Authentification cryptographique forte</li>
-                <li>• Pas de mots de passe, uniquement des clés</li>
-                <li>• Vos données restent sur votre homeserver</li>
-                <li>• Code source ouvert et auditable</li>
-                <li>• Protocole décentralisé Pubky</li>
+                <li>• Strong cryptographic authentication</li>
+                <li>• No passwords, only keys</li>
+                <li>• Your data stays on your homeserver</li>
+                <li>• Open source and auditable code</li>
+                <li>• Decentralized Pubky protocol</li>
               </ul>
             </div>
           </div>
@@ -310,11 +273,10 @@ export default function HowItWorksPage() {
         {/* Call to Action */}
         <div className="text-center bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg p-8">
           <h2 className="text-2xl font-bold text-white mb-4">
-            🚀 Prêt à contribuer à l'écosystème Pubky ?
+            🚀 Ready to join the Pubky ecosystem?
           </h2>
           <p className="text-purple-100 mb-6">
-            Connectez-vous avec Pubky Ring et proposez vos idées pour faire
-            évoluer le web décentralisé !
+            Log in with Pubky Ring and start managing your calendar events in a decentralized way!
           </p>
           <button
             onClick={() => router.push("/")}
