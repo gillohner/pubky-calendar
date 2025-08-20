@@ -1,0 +1,18 @@
+{
+  "id": "e28ab878-0207-47db-91df-15af0b4d8bf7",
+  "title": "qsdqsdqs",
+  "description": "qsdqsdqsdqds",
+  "category": "general",
+  "status": "planned",
+  "priority": "medium",
+  "created_at": "2025-08-07T12:29:48.145Z",
+  "updated_at": "2025-08-07T12:29:48.145Z",
+  "author_pubkey": "w3ase343kdnbtp4y3x69qd1qyt8peyrdtkhf671ujucc9i8fge6y",
+  "pubky_path": "/pub/roadky-app/features/e28ab878-0207-47db-91df-15af0b4d8bf7.json",
+  "votes": 1,
+  "voters": [
+    "w3ase343kdnbtp4y3x69qd1qyt8peyrdtkhf671ujucc9i8fge6y"
+  ],
+  "indexed_at": "2025-08-07T12:29:48.145Z",
+  "last_sync": "2025-08-07T12:29:48.145Z"
+}
