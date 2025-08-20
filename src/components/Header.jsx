@@ -66,9 +66,10 @@ export default function Header({ onShowLoginModal, onShowCreateModal } = {}) {
                 Pubky Calendar
               </h1>
               <p className="text-sm text-slate-600 dark:text-slate-400">
-                Vote for the future of Pubky ecosystem
+                A new era of decentralized calendar management
               </p>
             </div>
+            v
           </div>
 
           {/* Navigation Links */}
