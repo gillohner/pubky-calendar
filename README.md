@@ -1,36 +1,34 @@
-# Pubky Calendar
+# Pubky Calendar (ICS)
 
-A decentralized voting platform for the Pubky ecosystem, built with Next.js and Pubky Ring authentication.
+A minimal calendar proof of concept that creates, stores, and lists events using standard .ics files on a Pubky homeserver.
 
 ## 🚀 Features
 
-- **🔐 Decentralized Authentication**: Login with Pubky Ring mobile app via QR code
-- **🗳️ Cryptographic Voting**: Secure voting with Ed25519 signatures
-- **🏠 Homeserver Storage**: Features stored on user's Pubky homeserver
-- **📱 Responsive Design**: Modern dark theme with mobile support
-- **⚡ Real-time Updates**: Dynamic feature list with instant vote updates
+- Login with Pubky Ring (grants capability: /pub/ics/:rw)
+- Create events (SUMMARY, DTSTART, DTEND, UID)
+- Store each event as a valid .ics file at:
+  - pubky://{pubkey}/pub/ics/events/{UID}.ics
+- Front feed: shows all locally cached events (no login required)
+- Admin area: shows only your events and lets you create new ones
+- Local cache for indexing at data/events
 
 ## 🏗️ Architecture
 
-### Dual Storage System
-
-- **Homeserver**: User features stored at `pubky://{pubkey}/pub/roadky-app/features/{id}.json`
-- **Local Cache**: Vote counts and metadata cached locally for performance
-
-### Authentication Flow
-
-1. User scans QR code with Pubky Ring mobile app
-2. App generates challenge and signature
-3. Server verifies Ed25519 signature
-4. Session established with user's public key
+- Homeserver storage
+  - One .ics file per event at /pub/ics/events/{UID}.ics
+  - ICS is a VCALENDAR containing a single VEVENT (VERSION:2.0, CALSCALE:GREGORIAN, METHOD:PUBLISH)
+- Local cache
+  - JSON mirror of events under data/events used for quick listing and backfill
+- Authentication
+  - Pubky Ring login; capability required: /pub/ics/:rw
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: Next.js 14, React 18, TypeScript
-- **Styling**: Tailwind CSS with dark theme
-- **Authentication**: Pubky Ring with Ed25519 signatures
-- **Storage**: Pubky homeserver + local JSON cache
-- **Deployment**: Docker with production optimizations
+- Frontend: Next.js 14, React 18, TypeScript
+- Styling: Tailwind CSS
+- Auth: Pubky Ring capabilities
+- Storage: Pubky homeserver (.ics) + local JSON cache
+- Deployment: Docker
 
 ## 📦 Installation
 
@@ -38,112 +36,87 @@ A decentralized voting platform for the Pubky ecosystem, built with Next.js and 
 
 - Node.js 18+
 - pnpm (recommended)
-- Pubky Ring mobile app for testing
+- Pubky Ring mobile app
 
 ### Development Setup
 
 ```bash
-# Install dependencies
 pnpm install
-
-# Start development server
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-### Testing Authentication
-
-1. Install Pubky Ring mobile app
-2. Click "Login with Pubky Ring" on the homepage
-3. Scan the QR code with the mobile app
-4. Complete the authentication challenge
+Open http://localhost:3000 in your browser.
 
 ## 🎯 Usage
 
-### Creating Features
+### Creating Events
 
 1. Login with Pubky Ring
-2. Click "Create Feature" on the homepage
-3. Fill in title, description, and category
-4. Feature is saved to your homeserver and displayed publicly
+2. Click “New Event”
+3. Fill in SUMMARY, DTSTART, DTEND (UID is auto-filled)
+4. The app saves a .ics file to your homeserver at /pub/ics/events/{UID}.ics
 
-### Voting
+### Listing Events
 
-- Click vote buttons on any feature
-- Votes are cryptographically signed
-- Vote counts update in real-time
+- Homepage shows all events from the local cache
+- If the cache is empty and you are logged in, it backfills from your homeserver
 
-### Managing Your Features
+### Admin Area
 
-- Access "My Features" from the navigation
-- Edit or delete your submitted features
-- Changes sync with your homeserver
+- Shows only your events (from local cache)
+- Create new events via the modal
 
 ## 🏗️ Project Structure
 
 ```
 src/
-├── app/                    # Next.js App Router
-│   ├── page.tsx           # Homepage with feature list
-│   ├── profile/           # User profile page
-│   ├── admin/             # Feature management
-│   ├── how-it-works/      # Documentation page
-│   └── api/               # API endpoints
-├── components/            # React components
-│   ├── FeatureList.jsx   # Main feature display
-│   ├── LoginModal.jsx    # Authentication modal
-│   └── Header.jsx        # Navigation header
-├── contexts/             # React contexts
-│   └── AuthContext.js   # Authentication state
-├── services/            # Business logic
-│   ├── pubkyService.js  # Pubky homeserver client
-│   └── featureService.js # Feature management
-└── styles/              # Global styles
+├── app/
+│   ├── page.tsx            # Homepage with event feed
+│   ├── admin/              # User events management
+│   └── api/
+│       └── events/         # Events API (local cache)
+├── components/
+│   ├── EventList.jsx       # Event list (front feed)
+│   ├── CreateEventModal.jsx# Create event modal
+│   ├── Header.jsx          # Navigation header
+│   └── LoginModal.jsx      # Authentication modal
+├── contexts/
+│   └── AuthContext.js      # Authentication state
+└── services/
+    ├── pubkyService.js     # Pubky client (.ics read/write)
+    └── eventService.js     # Local cache service
 ```
+
+Note: Legacy “feature” files remain in the repo for reference but are not used by the UI.
 
 ## 🔧 API Endpoints
 
-- `GET /api/features` - List all features with vote counts
-- `POST /api/features` - Create new feature (authenticated)
-- `PUT /api/features/[id]` - Update feature (authenticated)
-- `DELETE /api/features/[id]` - Delete feature (authenticated)
-- `POST /api/features/[id]/vote` - Vote on feature
-- `POST /api/auth/verify` - Verify Pubky Ring signature
+- GET /api/events – List all cached events
+- POST /api/events – Create/cache an event locally
 
 ## 🚀 Deployment
 
 ### Docker
 
 ```bash
-# Build and run
 docker build -t pubky-calendar .
 docker run -p 3000:3000 pubky-calendar
 ```
 
 ### Environment Variables
 
-Create `.env.local`:
+Create .env.local (optional):
 
 ```env
-# Optional: Custom configuration
-NEXT_PUBLIC_APP_NAME="Pubky Calendar"
+NEXT_PUBLIC_APP_NAME="Pubky Calendar (ICS)"
 ```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test with Pubky Ring authentication
-5. Submit a pull request
 
 ## 📄 License
 
-MIT License - see LICENSE file for details
+MIT License - see LICENSE
 
 ## 🔗 Links
 
-- [Pubky Ecosystem](https://pubky.org)
-- [Pubky Ring App](https://pubky.app)
-- [Pubky Documentation](https://docs.pubky.org)
+- https://pubky.org
+- https://pubky.app
+- https://docs.pubky.org
